@@ -4,14 +4,14 @@ from django.shortcuts import render
 # контролеры=функции (подключаем их в urls.py в path())
 def index(request):
     context = {
-        'title': 'GeekShop - Catalogue',
+        'title': 'GeekShop',
     }
     return render(request, 'products/index.html', context)
 
 
 def products(request):
     context = {
-        'title': 'Products',
+        'title': 'GeekShop - Catalogue',
         'products': [
             {'name': 'Худи черного цвета с монограммами adidas Originals',
              'price': 6090,
