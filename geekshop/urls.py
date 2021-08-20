@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
 
-from products.views import index, products
+from products.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +26,7 @@ urlpatterns = [
     path('products/', include('products.urls', namespace='products')),
 ]
 
-#проверка, что работаем локально (обратимся к переменной Debug (settings.py), она стоит в значение True,
+# проверка, что работаем локально (обратимся к переменной Debug (settings.py), она стоит в значение True,
 # это означает что мы радотаем локально
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
