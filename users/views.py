@@ -11,7 +11,7 @@ def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)  # создание объекта формы с данными, кот пришли от клиента
         if form.is_valid():
-            username = request.POST['username']  # request.POST-словарь
+            username = request.POST['username']  # request.POST-Query Dict (джанговский тип данных, неизменяемый словарь)
             password = request.POST['password']
             user = auth.authenticate(username=username,
                                      password=password)  # проверяем есть ли в БД такой логин с паролем
