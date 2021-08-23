@@ -1,10 +1,6 @@
-import os
-
 from django.shortcuts import render
 
 from products.models import Product, ProductCategory
-
-MODULE_DIR = os.path.dirname(__file__)
 
 
 # контролеры=функции (подключаем их в urls.py в path())

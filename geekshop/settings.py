@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User' #после появления новой модели(таблицы), нам надо переопределить поле AUTH_USER_MODEL
+# и указать какая это модель. Это делается только с моделью users
