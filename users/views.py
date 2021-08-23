@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import auth
 
-from users.forms import UserLoginForm
+from users.forms import UserLoginForm, UserRegistrationForm
 
 
 # конролер авторизации
@@ -13,14 +13,12 @@ def login(request):
         if form.is_valid():
             username = request.POST['username']  # request.POST-Query Dict (джанговский тип данных, неизменяемый словарь)
             password = request.POST['password']
-            user = auth.authenticate(username=username,
-                                     password=password)  # проверяем есть ли в БД такой логин с паролем
+            user = auth.authenticate(username=username, password=password)  # проверяем есть ли в БД такой логин с паролем
             if user and user.is_active:  # если такой пользователь есть в системе и активен
                 auth.login(request, user)  # тогда мы его авторизуем
                 return HttpResponseRedirect(reverse('index'))  # если авторизация прошла успешна, то возвращаем
                 # его на страницу index
-        else:
-            print(form.errors)
+
     else:
         form = UserLoginForm()
     context = {'title': 'GeekShop - Авторизация', 'form': form}
@@ -28,5 +26,12 @@ def login(request):
 
 
 def registration(request):
-    context = {'title': 'GeekShop - Регистрация'}
+    if request.method == 'POST':
+        form = UserRegistrationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('users:login'))
+    else:
+        form = UserRegistrationForm() #Get запрос
+    context = {'title': 'GeekShop - Регистрация', 'form': form}
     return render(request, 'users/registration.html', context)
