@@ -42,6 +42,11 @@ def registration(request):
     return render(request, 'users/registration.html', context)
 
 
+def profile(request):
+    context = {'title': 'GeekShop - Личный кабинет'}
+    return render(request, 'users/profile.html', context)
+
+
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
