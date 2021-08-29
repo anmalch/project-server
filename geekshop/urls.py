@@ -25,6 +25,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('products/', include('products.urls', namespace='products')),
     path('users/', include('users.urls', namespace='users')),
+    path('baskets/', include('baskets.urls', namespace='baskets')),
 ]
 
 # проверка, что работаем локально (обратимся к переменной Debug (settings.py), она стоит в значение True,
