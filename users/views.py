@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 
 # конролер авторизации
@@ -43,7 +43,8 @@ def registration(request):
 
 
 def profile(request):
-    context = {'title': 'GeekShop - Личный кабинет'}
+    form = UserProfileForm(instance=request.user)
+    context = {'title': 'GeekShop - Личный кабинет', 'form': form}
     return render(request, 'users/profile.html', context)
 
 
