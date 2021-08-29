@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from baskets.models import Basket
 
 
 # конролер авторизации
@@ -50,7 +51,10 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))
 
     form = UserProfileForm(instance=request.user)
-    context = {'title': 'GeekShop - Личный кабинет', 'form': form}
+    context = {
+        'title': 'GeekShop - Личный кабинет',
+        'form': form,
+        'baskets': Basket.objects.all()}
     return render(request, 'users/profile.html', context)
 
 
