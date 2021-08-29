@@ -1,3 +1,4 @@
+
 {% if baskets %}
     <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
     Корзина <span class="badge badge-secondary badge-pill">3</span>
@@ -15,7 +16,7 @@
                             <input name="basketID" type="number" class="form-control"
                                    value="{{ basket.quantity }}" min="0">
                         </div>
-                        <div class="col-lg-4">{{ basket.product.price}}</div>
+                        <div class="col-lg-4">2 390 руб.</div>
                         <div class="col-lg-4">
                             <a href="#">
                                 <i class="fas fa-trash"></i>
@@ -28,11 +29,11 @@
     {% endfor %}
 
     <div class="card mb-3">
-    <div class="card-footer">
-        <p class="float-left">Итого</p>
-        <h4 class="float-right">2 390 руб.</h4>
+        <div class="card-footer">
+            <p class="float-left">Итого</p>
+            <h4 class="float-right">2 390 руб.</h4>
+        </div>
     </div>
-</div>
     <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
 {% else %}
     <h4 class="mt-3 mb-3 text-center">
