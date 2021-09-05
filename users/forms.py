@@ -24,10 +24,6 @@ class UserRegistrationForm(UserCreationForm):
         'class': 'form-control py-4', 'placeholder': 'Введите имя'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control py-4', 'placeholder': 'Введите фамилию'}))
-    birthday = forms.DateField(widget=forms.DateInput(attrs={
-        'class': 'form-control py-4', 'placeholder': 'Введите дату рождения'}))
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={
-        'class': 'form-control py-4', 'placeholder': 'Загрузите картинку'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control py-4', 'placeholder': 'Введите пароль'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -35,7 +31,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'birthday', 'image', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
 
 
 class UserProfileForm(UserChangeForm):
