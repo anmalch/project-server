@@ -35,7 +35,7 @@ def admin_users_update(request, id):
     selected_user = User.objects.get(id=id)
     if request.method == 'POST':
         form = UserAdminProfileForm(instance=selected_user, files=request.FILES,
-                               data=request.POST)  # instance: чтобы форма понимала для какого user мы будем обновлять данные
+                                    data=request.POST)  # instance: чтобы форма понимала для какого user мы будем обновлять данные
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('admins:admin_users'))
@@ -49,11 +49,11 @@ def admin_users_update(request, id):
     }
     return render(request, 'admins/admin-users-update-delete.html', context)
 
+
 # CRUD: Delete
 
 def admin_users_delete(request, id):
-    user = User.objects.get(id=id) #выбираем польз-ля по id из БД
-    user.is_active = False #вместо удаления
-    user.save()
-    return HttpResponseRedirect(reverse('admins:admin_users')) #перенаправляем на главную страницу
-
+    user = User.objects.get(id=id)  # выбираем польз-ля по id из БД
+    # user.is_active = False вместо удаления
+    user.safe_delete()
+    return HttpResponseRedirect(reverse('admins:admin_users'))  # перенаправляем на главную страницу
