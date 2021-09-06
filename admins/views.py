@@ -48,3 +48,12 @@ def admin_users_update(request, id):
         'form': form,
     }
     return render(request, 'admins/admin-users-update-delete.html', context)
+
+# CRUD: Delete
+
+def admin_users_delete(request, id):
+    user = User.objects.get(id=id) #выбираем польз-ля по id из БД
+    user.is_active = False #вместо удаления
+    user.save()
+    return HttpResponseRedirect(reverse('admins:admin_users')) #перенаправляем на главную страницу
+
