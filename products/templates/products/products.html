@@ -15,7 +15,9 @@
             <div class="list-group">
                 {% if categories %}
                     {% for category in categories %}
-                        <a href="#" class="list-group-item">{{ category.name }}</a>
+                        <a href="{% url 'products:category' category.id %}" class="list-group-item">
+                            {{ category.name }}
+                        </a>
                     {% endfor %}
                 {% else %}
                     <h3>Категорий нет.</h3>
@@ -73,7 +75,9 @@
                                     <p class="card-text">{{ product.description | capfirst}}</p>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a href="{% url 'baskets:basket_add' product.id %}" class="btn btn-outline-success">Отправить в корзину</a>
+                                    <a href="{% url 'baskets:basket_add' product.id
+
+                                    %}" class="btn btn-outline-success">Отправить в корзину</a>
                                 </div>
                             </div>
                         </div>
