@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
@@ -76,9 +76,14 @@ class UserUpdateView(UpdateView):
 
 
 # CRUD: Delete
-@user_passes_test(lambda u: u.is_staff)
-def admin_users_delete(request, id):
-    user = User.objects.get(id=id)  # выбираем польз-ля по id из БД
-    # user.is_active = False вместо удаления
-    user.safe_delete()
-    return HttpResponseRedirect(reverse('admins:admin_users'))  # перенаправляем на главную страницу
+#@user_passes_test(lambda u: u.is_staff)
+#def admin_users_delete(request, id):
+#    user = User.objects.get(id=id)  # выбираем польз-ля по id из БД
+#    # user.is_active = False вместо удаления
+#    user.safe_delete()
+#    return HttpResponseRedirect(reverse('admins:admin_users'))  # перенаправляем на главную страницу
+
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = 'admins/admin-users-update-delete.html'
+    success_url = reverse_lazy('admins:admin_users')
