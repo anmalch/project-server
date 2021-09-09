@@ -4,16 +4,29 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.base import TemplateView
 
 from users.models import User
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm
 
 
-@user_passes_test(lambda u: u.is_staff)  # обращаемся к польз-ю и проверяем, если user is_staff, то доступны контроллеры
-def index(request):
-    context = {'title': 'GeekShop - Admin'}
-    return render(request, 'admins/index.html', context)  # возвращается генерация шаблона
+#@user_passes_test(lambda u: u.is_staff)  # обращаемся к польз-ю и проверяем, если user is_staff, то доступны контроллеры
+#def index(request):
+#   context = {'title': 'GeekShop - Admin'}
+#   return render(request, 'admins/index.html', context)  # возвращается генерация шаблона
 
+
+class UserTemplateView(TemplateView):
+    template_name = 'admins/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'GeekShop - Админ'
+        return context
+
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    def dispatch(self, request, *args, **kwargs):  # метод, отвечающий за отображение данных
+        return super(UserTemplateView, self).dispatch(request, *args, **kwargs)
 
 # CRUD: Read
 # @user_passes_test(lambda u: u.is_staff)
@@ -32,12 +45,13 @@ class UserListView(ListView):
         return context
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
-    def dispatch(self, request, *args, **kwargs): #метод, отвечающий за отображение данных
+    def dispatch(self, request, *args, **kwargs):  # метод, отвечающий за отображение данных
         return super(UserListView, self).dispatch(request, *args, **kwargs)
 
+
 # CRUD: Create
-#@user_passes_test(lambda u: u.is_staff)
-#def admin_users_create(request):
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users_create(request):
 #    if request.method == 'POST':
 #        form = UserAdminRegistrationForm(data=request.POST, files=request.FILES)
 #     if form.is_valid():
@@ -58,8 +72,8 @@ class UserCreateView(CreateView):
 
 
 # CRUD: Update
-#@user_passes_test(lambda u: u.is_staff)
-#def admin_users_update(request, id):
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users_update(request, id):
 #    selected_user = User.objects.get(id=id)
 #   if request.method == 'POST':
 #        form = UserAdminProfileForm(instance=selected_user, files=request.FILES,
@@ -85,8 +99,8 @@ class UserUpdateView(UpdateView):
 
 
 # CRUD: Delete
-#@user_passes_test(lambda u: u.is_staff)
-#def admin_users_delete(request, id):
+# @user_passes_test(lambda u: u.is_staff)
+# def admin_users_delete(request, id):
 #    user = User.objects.get(id=id)  # выбираем польз-ля по id из БД
 #    # user.is_active = False вместо удаления
 #    user.safe_delete()
