@@ -1,12 +1,11 @@
 from django.urls import path
 
-from products.views import products, ProductsTemplateView
+from products.views import ProductsListView
 
 app_name = 'products'
 
 urlpatterns = [
-    path('', ProductsTemplateView.as_view(), name='product'), #при переходе в каталог, срабатывает url-адрес: /products
-    path('<int:category_id>/', products, name='category'),
-    path('page/<int:page>/', products, name='page'), #логика отвечает за пагинацию
-
+    path('', ProductsListView.as_view(), name='product'),  # при переходе в каталог, срабатывает url-адрес: /products
+    path('<int:category_id>/', ProductsListView.as_view(), name='category'),
+    path('page/<int:page>/', ProductsListView.as_view(), name='page'),  # логика отвечает за пагинацию
 ]
