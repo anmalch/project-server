@@ -20,7 +20,7 @@ class UserTemplateView(TemplateView):
     template_name = 'admins/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(UserTemplateView, self).get_context_data(**kwargs)
         context['title'] = 'GeekShop - Админ'
         return context
 
