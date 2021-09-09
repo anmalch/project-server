@@ -25,6 +25,10 @@ class UserListView(ListView):
     model = User  # передаем данному классу таблицу(model) со списком пользователей
     template_name = 'admins/admin-users.html'  # указываем где нужно отоброжать объекты (User)
 
+    def get_context_data(self, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
+        context['title'] = 'GeekShop - Админ | Пользователи'
+        return context
 
 # CRUD: Create
 #@user_passes_test(lambda u: u.is_staff)
