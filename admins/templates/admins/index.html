@@ -3,7 +3,11 @@
 {% block content %}
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Административная панель</h1>
+            <form action="{% url 'admins:index' %}" method="get">
+                {% csrf_token %}
+                <h1 class="mt-4">Административная панель</h1>
+            </form>
+
         </div>
     </main>
 {% endblock %}
