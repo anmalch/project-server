@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -54,6 +53,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'users.context_processors.basket'
             ],
         },
     },
@@ -113,7 +113,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'  # после появления новой модели(таблицы), нам надо переопределить поле AUTH_USER_MODEL
@@ -121,3 +120,20 @@ AUTH_USER_MODEL = 'users.User'  # после появления новой мо�
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+DOMAIN_NAME = 'http://localhost:8000'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '72dd38d9b0fcac'
+EMAIL_HOST_PASSWORD = '21bb359b10af30'
+EMAIL_PORT = '2525'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+#EMAIL_HOST = 'localhost'  # 'smtp.mail.ru'
+#EMAIL_HOST_USER = 'django@geekshop.local'
+#EMAIL_HOST_PASSWORD = 'geekshop'
+#EMAIL_USE_SSL = False  # используем или нет шифрование
+
+#EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
