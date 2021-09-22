@@ -1,0 +1,3 @@
+django-environ
+social_auth_app_django
+Django~=3.2.6
