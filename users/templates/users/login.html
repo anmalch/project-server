@@ -47,6 +47,11 @@
                             <div class="small"><a href="{% url 'users:register' %}">Нужен аккаунт?
                                 Зарегистрируйся!</a></div>
                         </div>
+                        <button class="btn btn-round form-control">
+                                <a href="{% url 'social:begin' 'vk-oauth2' %}">
+                                 Вход через ВКонтакте
+                                </a>
+                        </button>
                     </div>
                 </div>
             </div>

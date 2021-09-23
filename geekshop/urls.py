@@ -12,6 +12,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('baskets/', include('baskets.urls', namespace='baskets')),
     path('admin-staff/', include('admins.urls', namespace='admins')),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 # проверка, что работаем локально (обратимся к переменной Debug (settings.py), она стоит в значение True,
