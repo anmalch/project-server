@@ -81,7 +81,8 @@ class OrderItem(models.Model):
     def get_product_cost(self):
         return self.product.price * self.quantity
 
+    is_active = models.BooleanField(default=True)
+
     class Meta:
         verbose_name = 'позиция'
         verbose_name_plural = 'озиции'
-
