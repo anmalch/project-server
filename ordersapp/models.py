@@ -4,6 +4,16 @@ from django.db import models
 from products.models import Product
 
 
+class OrderItemQuerySet(models.QuerySet):
+
+    def delete(self, *args, **kwargs):
+        for object in self:
+            object.product.quantity += object.quantity
+            object.product.save()
+
+        super(OrderItemQuerySet, self).delete(*args, **kwargs)
+
+
 class Order(models.Model):
     FORMING = 'FM'
     SENT_TO_PROCEED = 'STP'
@@ -61,11 +71,14 @@ class Order(models.Model):
         for item in self.orderitems.select_related():
             item.product.quantity += item.quantity
             item.product.save()
+
         self.is_active = False
         self.save()
 
 
 class OrderItem(models.Model):
+    object = OrderItemQuerySet.as_manager()
+
     order = models.ForeignKey(
         Order,
         related_name="orderitems",
@@ -78,10 +91,14 @@ class OrderItem(models.Model):
         verbose_name='количество',
         default=0)
 
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.filter(pk=pk).first()
+
     def get_product_cost(self):
         return self.product.price * self.quantity
+
 
     class Meta:
         verbose_name = 'позиция'
         verbose_name_plural = 'озиции'
-
