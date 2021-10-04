@@ -85,10 +85,10 @@ class OrderItem(models.Model):
         on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product,
-        verbose_name='продукт',
+        verbose_name='Продукт',
         on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(
-        verbose_name='количество',
+        verbose_name='Количество',
         default=0)
 
     @staticmethod
@@ -98,7 +98,6 @@ class OrderItem(models.Model):
     def get_product_cost(self):
         return self.product.price * self.quantity
 
-
     class Meta:
         verbose_name = 'позиция'
-        verbose_name_plural = 'озиции'
+        verbose_name_plural = 'позиции'

@@ -25,6 +25,7 @@ class Basket(models.Model):
     @staticmethod
     def get_item(pk):
         return Basket.objects.filter(pk=pk).first()
+
     def __str__(self):
         return f'Корзина для {self.user.username} | Продукт {self.product.name}'
 
