@@ -14,6 +14,8 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
+    class Meta:
+        ordering = ['-id']
     name = models.CharField(max_length=256)
     image = models.ImageField(upload_to='products_images', blank=True)
     description = models.CharField(max_length=64, blank=True, null=True)
