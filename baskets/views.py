@@ -8,7 +8,7 @@ from baskets.models import Basket
 
 
 @login_required(
-    login_url='users/login')  # декоратор проверяет авторизан ли юзер, если нет, то перенаправляет на стр авторизации
+    login_url='/users/login')  # декоратор проверяет авторизан ли юзер, если нет, то перенаправляет на стр авторизации
 # создание контроллера отправки товара в корзину
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
