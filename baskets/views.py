@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 from products.models import Product
 from baskets.models import Basket
-
+from django.db.models import F, Q
 
 @login_required(
     login_url='/users/login')  # декоратор проверяет авторизан ли юзер, если нет, то перенаправляет на стр авторизации
@@ -19,13 +19,13 @@ def basket_add(request, product_id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # возврат юзера на страницу последнего действия
     else:
         basket = baskets.first()
-        basket.quantity += 1
+        basket.quantity = F('quantity') + 1
         basket.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
-def basket_remove(request, id):  # id - basket_id
+def basket_remove(request, id=None):  # id - basket_id
     basket = Basket.objects.get(id=id)
     basket.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
