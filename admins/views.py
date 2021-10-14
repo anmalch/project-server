@@ -66,7 +66,7 @@ class UserUpdateView(UpdateView):
         context['title'] = 'GeekShop - Редактирование пользователя'
         return context
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/'))
+    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/users/login/'))
     def dispatch(self, request, *args, **kwargs):
         return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -120,6 +120,6 @@ class ProductCategoryUpdateView(UpdateView):
 
         return super().form_valid(form)
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/'))
+    @method_decorator(user_passes_test(lambda u: u.is_superuser, login_url='/users/login/'))
     def dispatch(self, request, *args, **kwargs):
         return super(ProductCategoryUpdateView, self).dispatch(request, *args, **kwargs)
