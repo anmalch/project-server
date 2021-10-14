@@ -7,12 +7,14 @@ from products.models import Product
 from baskets.models import Basket
 from django.db.models import F, Q
 
+
 @login_required(
     login_url='/users/login')  # декоратор проверяет авторизан ли юзер, если нет, то перенаправляет на стр авторизации
 # создание контроллера отправки товара в корзину
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
     baskets = Basket.objects.filter(user=request.user, product=product)
+
 
     if not baskets.exists():
         Basket.objects.create(user=request.user, product=product, quantity=1)
@@ -41,5 +43,5 @@ def basket_edit(request, id, quantity):
             basket.delete()
         baskets = Basket.objects.filter(user=request.user)
         context = {'baskets': baskets}
-        result = render_to_string('baskets/baskets.html', context) #сформировали обновленную html страничку
-        return JsonResponse({'result': result}) #через json передаем обновленную страницу
+        result = render_to_string('baskets/baskets.html', context)  # сформировали обновленную html страничку
+        return JsonResponse({'result': result})  # через json передаем обновленную страницу
