@@ -1,3 +1,4 @@
+from products.models import ProductCategory
 from users.forms import UserRegistrationForm, UserProfileForm
 from django import forms
 from users.models import User
@@ -14,3 +15,14 @@ class UserAdminRegistrationForm(UserRegistrationForm):
 class UserAdminProfileForm(UserProfileForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'readonly': False}))  # ключ readonly означает, что поле доступно только для чтения
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control py-4', 'readonly': False}))
+
+
+class ProductCategoryEditForm(forms.ModelForm):
+    discount = forms.IntegerField(label='скидка', required=False, min_value=0, max_value=90, initial=0)
+
+    class Meta:
+        model = ProductCategory
+        exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(ProductCategoryEditForm, self).__init__(*args, **kwargs)

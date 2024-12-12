@@ -1,6 +1,7 @@
 django-environ
 social_auth_app_django
 Django~=3.2.6
-requests
+requests~=2.26.0
 gunicorn
 psycopq2-binary
+django-debug-toolbar~=3.2.2

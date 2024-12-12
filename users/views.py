@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
@@ -79,6 +80,8 @@ class UserRegistrationView(CommonContextMixin, SuccessMessageMixin, CreateView):
 # context['baskets'] = Basket.objects.filter(user=self.object)
 #        return context
 
+
+@login_required
 @transaction.atomic
 def profile(request):
     if request.method == 'POST':
